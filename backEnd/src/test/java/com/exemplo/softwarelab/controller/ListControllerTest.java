@@ -26,13 +26,13 @@ public class ListControllerTest {
 
     @BeforeEach
     public void setUp() {
-        // Limpa o repositório antes de cada teste
+
         listRepository.deleteAll();
     }
 
     @Test
     public void testCreateList() throws Exception {
-        // Testa o endpoint POST /api/lists
+
         String listJson = "{\"name\":\"Minha Lista\"}";
 
         mockMvc.perform(post("/api/lists")
@@ -45,7 +45,7 @@ public class ListControllerTest {
 
     @Test
     public void testGetListById() throws Exception {
-        // Cria uma lista para testar o GET
+
         List list = new List("Lista de Teste");
         list = listRepository.save(list);
 
@@ -57,7 +57,7 @@ public class ListControllerTest {
 
     @Test
     public void testUpdateList() throws Exception {
-        // Cria uma lista para testar o PUT
+
         List list = new List("Lista Original");
         list = listRepository.save(list);
 
@@ -73,14 +73,14 @@ public class ListControllerTest {
 
     @Test
     public void testDeleteList() throws Exception {
-        // Cria uma lista para testar o DELETE
+
         List list = new List("Lista para Deletar");
         list = listRepository.save(list);
 
         mockMvc.perform(delete("/api/lists/" + list.getId()))
                 .andExpect(status().isNoContent());
 
-        // Verifica se a lista foi deletada
+
         mockMvc.perform(get("/api/lists/" + list.getId()))
                 .andExpect(status().isNotFound());
     }
