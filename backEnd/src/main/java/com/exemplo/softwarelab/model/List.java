@@ -14,14 +14,12 @@ public class List {
 
     private String name;
 
-    // Construtores
     public List() {}
 
     public List(String name) {
         this.name = name;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
