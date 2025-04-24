@@ -13,17 +13,14 @@ public class ListService {
     @Autowired
     private ListRepository listRepository;
 
-    // Criar lista
     public List createList(List list) {
         return listRepository.save(list);
     }
 
-    // Abrir lista (buscar por ID)
     public Optional<List> getListById(Long id) {
         return listRepository.findById(id);
     }
 
-    // Editar lista
     public List updateList(Long id, List updatedList) {
         Optional<List> existingList = listRepository.findById(id);
         if (existingList.isPresent()) {
@@ -34,7 +31,6 @@ public class ListService {
         throw new RuntimeException("Lista não encontrada com ID: " + id);
     }
 
-    // Remover lista
     public void deleteList(Long id) {
         if (listRepository.existsById(id)) {
             listRepository.deleteById(id);
