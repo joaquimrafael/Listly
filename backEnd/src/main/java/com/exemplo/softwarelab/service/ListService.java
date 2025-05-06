@@ -38,4 +38,8 @@ public class ListService {
             throw new RuntimeException("Lista não encontrada com ID: " + id);
         }
     }
+
+    public java.util.List<List> getAllLists() {
+        return listRepository.findAll();
+    }
 }

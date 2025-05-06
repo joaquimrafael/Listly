@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -71,5 +72,16 @@ public class ProductController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Operation(summary = "Buscar todos os produtos", description = "Retorna todos os produtos disponíveis")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Produtos encontrados"),
+        @ApiResponse(responseCode = "404", description = "Nenhum produto encontrado")
+    })
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
     }
 }

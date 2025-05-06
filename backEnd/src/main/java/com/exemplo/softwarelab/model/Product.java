@@ -13,6 +13,8 @@ public class Product {
 	private String description;
 	private String priority;
 	private String link;
+
+	public Product() {}
 	
 	public Product(String name, double price, String description, String priority, String link, long id) {
 		super();

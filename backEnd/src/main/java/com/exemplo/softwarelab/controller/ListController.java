@@ -70,4 +70,14 @@ public class ListController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @Operation(summary = "Buscar todas as listas", description = "Retorna todas as listas disponíveis")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Listas encontradas")
+    })
+    @GetMapping
+    public ResponseEntity<java.util.List<List>> getAllLists() {
+        java.util.List<List> lists = listService.getAllLists();
+        return ResponseEntity.ok(lists);
+    }
 }
