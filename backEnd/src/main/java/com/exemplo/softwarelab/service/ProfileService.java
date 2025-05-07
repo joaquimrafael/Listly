@@ -1,18 +1,18 @@
 package com.exemplo.softwarelab.service;
 
+import com.exemplo.softwarelab.model.Profile;
+import com.exemplo.softwarelab.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exemplo.softwarelab.model.Profile;
-import com.exemplo.softwarelab.repository.ProfileRepository;
-
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProfileService {
-    
+
     @Autowired
-    private ProfileRepository profileRepository; 
+    private ProfileRepository profileRepository;
 
     public Profile createProfile(Profile profile) {
         return profileRepository.save(profile);
@@ -23,19 +23,19 @@ public class ProfileService {
     }
 
     public Profile updateProfile(Long id, Profile updatedProfile) {
-        Profile existingProfile = profileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Perfil não encontrado com ID: " + id));
-        existingProfile.setName(updatedProfile.getName());
-        existingProfile.setEmail(updatedProfile.getEmail());
-        existingProfile.setPassword(updatedProfile.getPassword());
-        return profileRepository.save(existingProfile);
+        Profile profile = profileRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+        profile.setName(updatedProfile.getName());
+        return profileRepository.save(profile);
     }
 
     public void deleteProfile(Long id) {
-        if (profileRepository.existsById(id)) {
-            profileRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Perfil não encontrado com ID: " + id);
+        if (!profileRepository.existsById(id)) {
+            throw new RuntimeException("Perfil não encontrado");
         }
+        profileRepository.deleteById(id);
+    }
+    public List<Profile> getAllProfiles() {
+        return profileRepository.findAll();
     }
 }

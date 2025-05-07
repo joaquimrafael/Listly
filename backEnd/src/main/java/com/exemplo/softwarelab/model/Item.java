@@ -8,29 +8,40 @@ public class Item {
     
     @Id
     private long id;
-    private long ListId;
-    private long ProductId;
+    private long listId;
+    private long productId;
     private int quantity;
 
     public Item() {}
+
     public Item(long listId, long productId, int quantity) {
-        this.ListId = listId;
-        this.ProductId = productId;
+        this.listId = listId;
+        this.productId = productId;
         this.quantity = quantity;
         this.id = listId * 1000 + productId;
     }
+
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getListId() {
-        return ListId;
+        return listId;
     }
     public void setListId(long listId) {
-        this.ListId = listId;
+        this.listId = listId;
     }
+
     public long getProductId() {
-        return ProductId;
+        return productId;
     }
     public void setProductId(long productId) {
-        this.ProductId = productId;
+        this.productId = productId;
     }
+
     public int getQuantity() {
         return quantity;
     }

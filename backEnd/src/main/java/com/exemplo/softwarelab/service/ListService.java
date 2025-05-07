@@ -17,29 +17,27 @@ public class ListService {
         return listRepository.save(list);
     }
 
+    public java.util.List<List> getAllLists() {
+        return listRepository.findAll();
+    }
+
     public Optional<List> getListById(Long id) {
         return listRepository.findById(id);
     }
 
     public List updateList(Long id, List updatedList) {
-        Optional<List> existingList = listRepository.findById(id);
-        if (existingList.isPresent()) {
-            List list = existingList.get();
-            list.setName(updatedList.getName());
-            return listRepository.save(list);
-        }
-        throw new RuntimeException("Lista não encontrada com ID: " + id);
+        List list = listRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException(
+                "Lista não encontrada com ID: " + id));
+        list.setName(updatedList.getName());
+        return listRepository.save(list);
     }
 
     public void deleteList(Long id) {
-        if (listRepository.existsById(id)) {
-            listRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Lista não encontrada com ID: " + id);
+        if (!listRepository.existsById(id)) {
+            throw new RuntimeException(
+                "Lista não encontrada com ID: " + id);
         }
-    }
-
-    public java.util.List<List> getAllLists() {
-        return listRepository.findAll();
+        listRepository.deleteById(id);
     }
 }

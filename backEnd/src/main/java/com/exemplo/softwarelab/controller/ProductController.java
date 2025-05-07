@@ -49,8 +49,9 @@ public class ProductController {
         @ApiResponse(responseCode = "404", description = "Produto não encontrado")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id,
-                                                 @RequestBody Product updatedProduct) {
+    public ResponseEntity<Product> updateProduct(
+            @PathVariable Long id,
+            @RequestBody Product updatedProduct) {
         try {
             Product product = productService.updateProduct(id, updatedProduct);
             return ResponseEntity.ok(product);
@@ -76,8 +77,7 @@ public class ProductController {
 
     @Operation(summary = "Buscar todos os produtos", description = "Retorna todos os produtos disponíveis")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Produtos encontrados"),
-        @ApiResponse(responseCode = "404", description = "Nenhum produto encontrado")
+        @ApiResponse(responseCode = "200", description = "Produtos encontrados")
     })
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {

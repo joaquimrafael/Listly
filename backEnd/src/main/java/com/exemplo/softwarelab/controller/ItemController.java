@@ -24,7 +24,10 @@ public class ItemController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
     @PostMapping
-    public ResponseEntity<Item> addItemToList(@RequestParam long listId, @RequestParam long productId, @RequestParam int quantity) {
+    public ResponseEntity<Item> addItemToList(
+            @RequestParam long listId,
+            @RequestParam long productId,
+            @RequestParam int quantity) {
         Item createdItem = itemService.addItemToList(listId, productId, quantity);
         return ResponseEntity.ok(createdItem);
     }
@@ -35,7 +38,9 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Item não encontrado")
     })
     @DeleteMapping
-    public ResponseEntity<Void> removeItemFromList(@RequestParam long listId, @RequestParam long productId) {
+    public ResponseEntity<Void> removeItemFromList(
+            @RequestParam long listId,
+            @RequestParam long productId) {
         try {
             itemService.removeItemFromList(listId, productId);
             return ResponseEntity.noContent().build();
@@ -50,7 +55,10 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Item não encontrado")
     })
     @PutMapping
-    public ResponseEntity<Item> updateItemQuantity(@RequestParam long listId, @RequestParam long productId, @RequestParam int quantity) {
+    public ResponseEntity<Item> updateItemQuantity(
+            @RequestParam long listId,
+            @RequestParam long productId,
+            @RequestParam int quantity) {
         try {
             Item updatedItem = itemService.updateItemQuantity(listId, productId, quantity);
             return ResponseEntity.ok(updatedItem);
@@ -66,7 +74,11 @@ public class ItemController {
     })
     @GetMapping
     public ResponseEntity<List<Item>> getAllListItems(@RequestParam long listId) {
-        List<Item> items = itemService.getAllListItems(listId);
-        return ResponseEntity.ok(items);
+        try {
+            List<Item> items = itemService.getAllListItems(listId);
+            return ResponseEntity.ok(items);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

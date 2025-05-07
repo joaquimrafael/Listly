@@ -38,7 +38,7 @@ public class ListController {
     public ResponseEntity<List> getListById(@PathVariable Long id) {
         Optional<List> list = listService.getListById(id);
         return list.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                   .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Operation(summary = "Editar uma lista", description = "Atualiza o nome de uma lista existente")
