@@ -54,7 +54,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
 
     useEffect(() => {
         //axios.get("https://localhost:8443/api/lists")
-        axios.get("https://3.231.53.41:8443/api/lists")
+        axios.get("https://18.204.42.84:8443/api/lists")
             .then(response => {
                 setLists(response.data); // Agora as listas são exibidas na ordem recebida
             })
