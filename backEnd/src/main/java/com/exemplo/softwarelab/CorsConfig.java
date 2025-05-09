@@ -14,7 +14,13 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5500", "https://software-engineering-lab2.vercel.app")
+                        .allowedOrigins(
+                                "http://localhost:5500",
+                                "https://software-engineering-lab2.vercel.app",
+                                "https://software-engineering-lab-o7v8.vercel.app",
+                                "http://127.0.0.1:5500/index.html"
+
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
