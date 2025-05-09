@@ -18,7 +18,7 @@ public class CorsConfig {
                                 "http://localhost:5500",
                                 "https://software-engineering-lab2.vercel.app",
                                 "https://software-engineering-lab-o7v8.vercel.app",
-                                "http://127.0.0.1:5500/index.html"
+                                "http://127.0.0.1:5500"
 
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
