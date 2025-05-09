@@ -53,8 +53,10 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
     const [lists, setLists] = useState([]);
 
     useEffect(() => {
-        axios.get("http://54.160.30.113:8080/api/lists")
-            .then(response => setLists(response.data))
+        axios.get("http://3.231.53.41:8080/api/lists")
+            .then(response => {
+                setLists(response.data); // Agora as listas são exibidas na ordem recebida
+            })
             .catch(error => console.error("Erro ao buscar listas", error));
     }, []);
 
@@ -63,7 +65,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
             <h1>Suas Listas</h1>
             {lists.map((list) => (
                 <div key={list.id} className="list-item">
-                    <h3>{list.nome}</h3>
+                    <h3>{list.name}</h3>
                     <button onClick={() => {
                         setSelectedList(list.id);
                         setScreen("list");
@@ -132,6 +134,9 @@ const App = () => {
         </div>
     ); 
 };
+    
+
+
 
 // Renderizando o aplicativo no navegador
 ReactDOM.render(<App />, document.getElementById("root"));
