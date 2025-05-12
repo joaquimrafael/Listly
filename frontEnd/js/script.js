@@ -2,8 +2,6 @@ const axiosInstance = axios;
 const { useState, useEffect } = React;
 
 
-//import { useEffect, useState } from "react";
-
 // Definição dos componentes
 
 const Register = () => {
@@ -51,33 +49,113 @@ const Home = ({ setScreen }) => (
 
 const ListsScreen = ({ setScreen, setSelectedList }) => {
     const [lists, setLists] = useState([]);
+    const [editingList, setEditingList] = useState(null);
+    const [listName, setListName] = useState("");
+    const [showCreateInput, setShowCreateInput] = useState(false);
 
     useEffect(() => {
         axios.get("https://localhost:8443/api/lists")
             .then(response => {
-                setLists(response.data); // Agora as listas são exibidas na ordem recebida
+                setLists(response.data);
             })
             .catch(error => console.error("Erro ao buscar listas", error));
     }, []);
 
+    // Criar nova lista
+    const handleCreateList = () => {
+        if (!listName.trim()) {
+            alert("O nome da lista não pode estar vazio!");
+            return;
+        }
+
+        axios.post("https://localhost:8443/api/lists", { name: listName })
+            .then(response => {
+                setLists(prevLists => [...prevLists, response.data]); // Adiciona ao estado
+                setListName(""); // Limpa campo
+                setShowCreateInput(false); // Esconde input de criação
+            })
+            .catch(error => console.error("Erro ao criar lista", error));
+    };
+
+    // Iniciar edição de uma lista
+    const startEditing = (list) => {
+        setEditingList(list);
+        setListName(list.name); // Preenche o campo com nome atual
+    };
+
+    // Salvar edição (PUT)
+    const handleEditList = () => {
+        if (!listName.trim()) {
+            alert("O nome da lista não pode estar vazio!");
+            return;
+        }
+
+        axios.put(`https://localhost:8443/api/lists/${editingList.id}`, { name: listName })
+            .then(() => {
+                setLists(prevLists =>
+                    prevLists.map(l => (l.id === editingList.id ? { ...l, name: listName } : l))
+                );
+                setEditingList(null); // Fecha edição
+                setListName(""); // Limpa campo
+            })
+            .catch(error => console.error("Erro ao editar lista", error));
+    };
+
     return (
         <div className="container">
             <h1>Suas Listas</h1>
-            {lists.map((list) => (
+
+            {/* Exibir listas apenas quando não estiver criando ou editando */}
+            {!showCreateInput && !editingList && lists.map((list) => (
                 <div key={list.id} className="list-item">
                     <h3>{list.name}</h3>
+                    <button onClick={() => setSelectedList(list.id)}>Ver Itens</button>
+                    <button onClick={() => startEditing(list)}>Editar Lista</button>
                     <button onClick={() => {
-                        setSelectedList(list.id);
-                        setScreen("list");
-                    }}>
-                        Ver Itens
-                    </button>
+                        axios.delete(`https://localhost:8443/api/lists/${list.id}`)
+                            .then(() => {
+                                setLists(lists.filter((l) => l.id !== list.id));
+                            })
+                            .catch(error => console.error("Erro ao excluir lista", error));
+                    }}>Excluir Lista</button>
                 </div>
             ))}
+
+            {/* Botão para criar nova lista - só aparece se não estiver editando */}
+            {!showCreateInput && !editingList && (
+                <button onClick={() => setShowCreateInput(true)}>Criar Nova Lista</button>
+            )}
+
+            {/* Formulário de criação de nova lista */}
+            {showCreateInput && (
+                <div>
+                    <input 
+                        type="text" 
+                        placeholder="Nome da lista" 
+                        value={listName} 
+                        onChange={(e) => setListName(e.target.value)} 
+                    />
+                    <button onClick={handleCreateList}>Salvar</button>
+                    <button onClick={() => setShowCreateInput(false)}>Cancelar</button>
+                </div>
+            )}
+
+            {/* Formulário de edição de lista */}
+            {editingList && (
+                <div>
+                    <input 
+                        type="text" 
+                        placeholder="Novo nome da lista" 
+                        value={listName} 
+                        onChange={(e) => setListName(e.target.value)} 
+                    />
+                    <button onClick={handleEditList}>Salvar</button>
+                    <button onClick={() => setEditingList(null)}>Cancelar</button>
+                </div>
+            )}
         </div>
     );
 };
-    
 
 const ListScreen = () => { 
     const items = [ { name: "Playstation 5", price: "USD 300", description: "Console de jogos", priority: "Médio", link: "#" }, 
