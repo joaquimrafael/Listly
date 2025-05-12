@@ -54,7 +54,8 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
     const [showCreateInput, setShowCreateInput] = useState(false);
 
     useEffect(() => {
-        axios.get("https://localhost:8443/api/lists")
+        //axios.get("https://localhost:8443/api/lists")
+        axios.get("https://44.214.113.103:8443/api/lists")
             .then(response => {
                 setLists(response.data);
             })
