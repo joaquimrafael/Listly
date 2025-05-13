@@ -26,6 +26,7 @@ public class ProfileService {
         Profile profile = profileRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
         profile.setName(updatedProfile.getName());
+        profile.setEmail(updatedProfile.getEmail());
         return profileRepository.save(profile);
     }
 
