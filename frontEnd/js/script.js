@@ -54,8 +54,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
     const [showCreateInput, setShowCreateInput] = useState(false);
 
     useEffect(() => {
-        //axios.get("https://localhost:8443/api/lists")
-        axios.get("https://44.214.113.103:8443/api/lists")
+        axios.get("https://localhost:8443/api/lists")
             .then(response => {
                 setLists(response.data);
             })
@@ -110,7 +109,12 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
             {!showCreateInput && !editingList && lists.map((list) => (
                 <div key={list.id} className="list-item">
                     <h3>{list.name}</h3>
-                    <button onClick={() => setSelectedList(list.id)}>Ver Itens</button>
+                    <button onClick={() => {
+                        setSelectedList({id: list.id, name: list.name});
+                        setScreen("list");
+                    }}>
+                        Ver Itens
+                    </button>
                     <button onClick={() => startEditing(list)}>Editar Lista</button>
                     <button onClick={() => {
                         axios.delete(`https://localhost:8443/api/lists/${list.id}`)
@@ -158,32 +162,106 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
     );
 };
 
-const ListScreen = () => { 
-    const items = [ { name: "Playstation 5", price: "USD 300", description: "Console de jogos", priority: "Médio", link: "#" }, 
-                    { name: "Barbie", price: "USD 110", description: "Boneca de brinquedo", priority: "Alto", link: "#" }, 
-                    { name: "Laptop", price: "USD 700", description: "Computador", priority: "Baixo", link: "#" } 
-    ];
-    
-    return ( 
-        <div className="container"> 
-            <h1>Lista de Presentes</h1> 
-            {items.map((item, index) => ( 
-                <div className="list-item" key={index}> 
-                    <h3>{item.name}</h3> 
-                    <p>Preço: {item.price}</p> 
-                    <p>Descrição: {item.description}</p> 
-                    <p>Prioridade: {item.priority}</p> 
-                    <a href={item.link}>Ver mais</a> 
-                    <button>Editar</button> 
-                    <button>Excluir</button> 
-                </div> 
-            ))} 
-            <button>Criar novo item</button> 
-        </div> 
-    ); 
+const ListScreen = ({ setScreen, selectedList, setSelectedProduct }) => {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        if (selectedList && selectedList.id) {
+            axios.get(`https://localhost:8443/api/items?listId=${selectedList.id}`)
+                .then(response => {
+                    const itemList = response.data || [];
+
+                    // Agora buscamos os detalhes dos produtos usando o productId de cada item
+                    const productRequests = itemList.map(item =>
+                        axios.get(`https://localhost:8443/api/products/${item.productId}`)
+                            .then(res => ({ ...item, product: res.data }))
+                    );
+
+                    Promise.all(productRequests)
+                        .then(updatedItems => setItems(updatedItems))
+                        .catch(error => console.error("Erro ao buscar produtos", error));
+                })
+                .catch(error => console.error("Erro ao buscar itens da lista", error));
+        }
+    }, [selectedList]);
+
+    const handleDeleteItem = (listId, productId) => {
+        axios.delete(`https://localhost:8443/api/items?listId=${listId}&productId=${productId}`)
+            .then(() => {
+                setItems(prevItems => prevItems.filter(item => item.listId !== listId || item.productId !== productId));
+            })
+            .catch(error => console.error("Erro ao excluir item", error));
+    };
+
+
+    return (
+        <div className="container">
+            <h1>Itens da {selectedList && selectedList.name ? selectedList.name : "Lista Desconhecida"}</h1>
+
+            {items.length > 0 ? (
+                items.map((item) => (
+                    <div className="list-item" >
+                        <div>
+                            <h3>{item.product && item.product.name ? item.product.name : "Nome desconhecido"}</h3>
+                            <p>Preço: {item.product && item.product.price ? item.product.price : "N/A"}</p>
+                        </div>
+                        <button 
+                            onClick={() => {setSelectedProduct(item.product); 
+                                            setScreen("product");}}
+                            style={{ marginRight: "10px" }}
+                        >
+                            Ver mais
+                        </button>
+
+                        <button 
+                            onClick={() => handleDeleteItem(item.listId, item.productId)}
+                            style={{
+                                background: "none",
+                                border: "none",
+                                cursor: "pointer",
+                            }}
+                        >  
+                            🗑️
+                        </button>  
+                    </div>    
+                ))
+            ) : (
+                <p>Nenhum item encontrado.</p>
+            )}
+
+            <button className="back-button" onClick={() => setScreen("lists")}>Voltar</button>
+        </div>
+    );
 };
 
+const ProductScreen = ({ selectedProduct, setScreen }) => {
+    if (!selectedProduct) return <p>Produto não encontrado.</p>;
 
+    return (
+        <div className="product-container">
+            <h1 className="product-title">{selectedProduct.name}</h1>
+            <p className="product-price"><strong>Preço:</strong> {selectedProduct.price}</p>
+            <p className="product-description"><strong>Descrição:</strong> {selectedProduct.description || "Sem descrição disponível."}</p>
+            <p className="product-priority"><strong>Prioridade:</strong> {selectedProduct.priority || "Não definida"}</p>
+
+            {/* Exibir os links */}
+            <div className="product-links">
+                <h3>Links do Produto:</h3>
+                {selectedProduct.links && selectedProduct.links.length > 0 ? (
+                    selectedProduct.links.map((link, index) => (
+                        <a key={index} href={link} target="_blank" rel="noopener noreferrer" className="product-link">
+                            🔗 Link {index + 1}
+                        </a>
+                    ))
+                ) : (
+                    <p>Sem links disponíveis.</p>
+                )}
+            </div>
+
+            <button className="back-button" onClick={() => setScreen("list")}>Voltar</button>
+        </div>
+    );
+};
 
 const Profile = () => (
   <div className="container">
@@ -197,6 +275,10 @@ const Profile = () => (
 // Componente principal com navegação entre telas
 const App = () => { 
     const [screen, setScreen] = React.useState("home");
+    const [selectedList, setSelectedList] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+
     return ( 
         <div className="app-container"> 
             <nav> 
@@ -207,8 +289,9 @@ const App = () => {
             {screen === "home" && <Home setScreen={setScreen} />} 
             {screen === "register" && <Register />} 
             {screen === "login" && <Login />} 
-            {screen === "lists" && <ListsScreen setScreen={setScreen}  />}
-            {screen === "list"  && <ListScreen />}
+            {screen === "lists" && <ListsScreen setScreen={setScreen} setSelectedList={setSelectedList} />}
+            {screen === "list"  && selectedList && <ListScreen selectedList={selectedList} setScreen={setScreen} setSelectedProduct={setSelectedProduct} />}
+            {screen === "product" && selectedProduct && <ProductScreen selectedProduct={selectedProduct} setScreen={setScreen} />}
             {screen === "profile" && <Profile />} 
         </div>
     ); 
