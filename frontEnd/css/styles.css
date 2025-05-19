@@ -3,63 +3,91 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: #eaeaea; /* 🔹 Um tom mais suave para maior conforto visual */
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
 /* Estilizando a barra de navegação */
 nav {
-    position: fixed; /* 🔹 Mantém a barra fixa */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 250px; /* Ajuste conforme necessário */
-    height: 100vh; /* Ocupa toda a altura */
-    background-color: #807e7e;
-    padding: 20px;
+    width: 240px;
+    height: 100vh;
+    background-color: #605f5f;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    justify-content: center; /* 🔹 Centraliza os botões verticalmente */
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Ajuste dos botões */
 nav button {
-    width: 80%; /* 🔹 Ajusta largura para centralização */
-    padding: 15px;
+    width: 90%;
+    padding: 12px;
     font-size: 16px;
     background: none;
-    border: none;
+    border: none; /* 🔹 Remove a borda branca */
     color: white;
     cursor: pointer;
-    margin-bottom: 10px;
-    text-align: center;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-bottom: 15px; /* 🔹 Espaço entre os botões */
 }
 
 nav button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
 }
+
 
 /* Estilizando o container principal */
 .container {
-
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f5f5f5;
+    max-width: 650px;
+    margin: auto; /* 🔹 Centraliza na tela */
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
+/* Ajustando a disposição geral */
 .app-container {
     display: flex;
     height: 100vh;
+    justify-content: center; /* 🔹 Centraliza os elementos */
+    align-items: center;
+    padding-left: 260px; /* 🔹 Garante espaço considerando a navbar */
 }
 
-/* Estilizando a lista de presentes */
+/* Estilizando a área de conteúdo */
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+/* Estilizando a lista de itens */
 .list-item {
     background-color: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     padding: 20px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .list-item h3 {
@@ -79,64 +107,72 @@ nav button:hover {
 }
 
 .list-item button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #333;
+    padding: 6px 12px;
+    background-color: #444;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 4px;
+    transition: 0.3s;
 }
 
 .list-item button:hover {
-    background-color: #333;
+    background-color: #555;
+    transform: scale(1.05);
 }
 
-/* Botão de criar novo item */
+/* Estilizando os formulários */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 🔹 Centraliza os inputs dentro do container */
+    justify-content: center; /* 🔹 Centraliza verticalmente */
+    text-align: center;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilizando os campos de entrada */
+input, textarea {
+    width: 80%; /* 🔹 Ajusta largura para melhor alinhamento */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center; /* 🔹 Centraliza o texto dentro dos campos */
+}
+
+
+h1, h2, h3, p {
+    text-align: center; /* 🔹 Centraliza todos os títulos e parágrafos */
+}
+
+
 button {
     display: block;
     width: 100%;
-    padding: 20px;
-    margin-top: 15px;
-    background-color: #333;
+    padding: 15px;
+    background-color: #444;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 6px;
+    transition: 0.3s;
+    margin-bottom: 15px; /* 🔹 Adiciona espaço entre os botões */
+}
+
+button:last-child {
+    margin-bottom: 0; /* 🔹 Remove margem do último botão para evitar espaçamento extra */
 }
 
 button:hover {
-    background-color: #333;
-}
-
-.home-container {
-    text-align: center;
-}
-
-.button-group {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.nav-button {
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.nav-button:hover {
-    background-color: #333;
-}
-
-.content {
-    flex: 1; /* Faz o conteúdo ocupar o espaço restante */
-    padding: 20px;
+    background-color: #555;
+    transform: scale(1.05);
 }
 
 .product-container {
@@ -200,5 +236,3 @@ button:hover {
 .back-button:hover {
     background-color: #c9302c;
 }
-
-
