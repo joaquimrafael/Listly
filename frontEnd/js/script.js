@@ -181,7 +181,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
                         onChange={(e) => setListName(e.target.value)} 
                     />
                     <button onClick={handleCreateList}>Salvar</button>
-                    <button onClick={() => setShowCreateInput(false)}>Cancelar</button>
+                    <button className="back-button" onClick={() => setShowCreateInput(false)}>Cancelar</button>
                 </div>
             )}
 
@@ -549,7 +549,7 @@ const Profile = () => {
                         placeholder="Email"
                     />
                     <button onClick={() => setIsEditing(false)}>Salvar</button>
-                    <button onClick={() => setIsEditing(false)}>Cancelar</button>
+                    <button className="back-button" onClick={() => setIsEditing(false)}>Cancelar</button>
                 </div>
             ) : (
                 // 🔹 Modo visualização: Exibe apenas os dados e botão "Editar Perfil"
