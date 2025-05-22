@@ -392,7 +392,15 @@ const ListScreen = ({ setScreen, selectedList, setSelectedProduct }) => {
                     <input type="text" placeholder="Nome" value={newProduct.name} onChange={(e) => setNewProduct({...newProduct, name: e.target.value})} />
                     <input type="number" placeholder="Preço" value={newProduct.price} onChange={(e) => setNewProduct({...newProduct, price: e.target.value})} />
                     <input type="text" placeholder="Descrição" value={newProduct.description} onChange={(e) => setNewProduct({...newProduct, description: e.target.value})} />
-                    <input type="text" placeholder="Prioridade" value={newProduct.priority} onChange={(e) => setNewProduct({...newProduct, priority: e.target.value})} />
+                    <select 
+                        value={newProduct.priority} 
+                        onChange={(e) => setNewProduct({...newProduct, priority: e.target.value})}
+                    >
+                        <option value="" disabled>Selecione a prioridade</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
                     <input type="text" placeholder="Link (Opcional)" value={newProduct.link} onChange={(e) => setNewProduct({...newProduct, link: e.target.value})} />
                     <button onClick={handleCreateNewProduct}>Salvar</button>
                     <button className="back-button" onClick={() => setView("addOptions")}>Cancelar</button>
@@ -514,7 +522,15 @@ const ProductScreen = ({ selectedProduct, setScreen, selectedList }) => {
                     <input type="text" placeholder="Nome" value={editedProduct.name} onChange={(e) => setEditedProduct({...editedProduct, name: e.target.value})} />
                     <input type="number" placeholder="Preço" value={editedProduct.price} onChange={(e) => setEditedProduct({...editedProduct, price: e.target.value})} />
                     <input type="text" placeholder="Descrição" value={editedProduct.description} onChange={(e) => setEditedProduct({...editedProduct, description: e.target.value})} />
-                    <input type="text" placeholder="Prioridade" value={editedProduct.priority} onChange={(e) => setEditedProduct({...editedProduct, priority: e.target.value})} />
+                    <select 
+                        value={editedProduct.priority} 
+                        onChange={(e) => setEditedProduct({...editedProduct, priority: e.target.value})}
+                    >
+                        <option value="" disabled>Selecione a prioridade</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
                     <input type="text" placeholder="Link (Opcional)" value={editedProduct.link} onChange={(e) => setEditedProduct({...editedProduct, link: e.target.value})} />
                     <button onClick={handleUpdateProduct}>Salvar</button>
                     <button className="back-button" onClick={() => setView("editOptions")}>Cancelar</button>
@@ -575,9 +591,12 @@ const App = () => {
     return ( 
         <div className="app-container"> 
             <nav> 
-                <button onClick={() => setScreen("home")}>🏠</button> 
-                <button onClick={() => setScreen("lists")}>📃</button> 
-                <button onClick={() => setScreen("profile")}>👤</button> 
+                <img src="js/Listly.png" alt="Logo" class="navbar-img"></img>
+                <div class="nav-buttons-container">
+                    <button onClick={() => setScreen("home")}>Home</button> 
+                    <button onClick={() => setScreen("lists")}>Lists</button> 
+                    <button onClick={() => setScreen("profile")}>Profile</button> 
+                </div>
             </nav> 
             {screen === "home" && <Home setScreen={setScreen} />} 
             {screen === "register" && <Register />} 
