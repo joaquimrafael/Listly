@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #eaeaea; /* 🔹 Um tom mais suave para maior conforto visual */
+    background-color: #f5f2e9; /* 🔹 Um tom mais suave para maior conforto visual */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,8 +21,17 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* 🔹 Centraliza os botões verticalmente */
+    justify-content: space-between; /* 🔹 Centraliza os botões verticalmente */
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* 🔹 Garante que os botões fiquem no meio */
+    justify-content: center;
+    width: 100%;
 }
 
 /* Ajuste dos botões */
@@ -32,7 +41,7 @@ nav button {
     font-size: 16px;
     background: none;
     border: none; /* 🔹 Remove a borda branca */
-    color: white;
+    color: #f5f2e9;
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
@@ -44,13 +53,19 @@ nav button:hover {
     transform: scale(1.05);
 }
 
+.navbar-img {
+    width: 80%; /* 🔹 Ajuste conforme necessário */
+    max-width: 150px; /* 🔹 Limita tamanho máximo */
+    display: block;
+    margin-top: 10px /* 🔹 Centraliza horizontalmente e adiciona espaço superior */
+}
 
 /* Estilizando o container principal */
 .container {
     max-width: 650px;
     margin: auto; /* 🔹 Centraliza na tela */
     padding: 25px;
-    background-color: #ffffff;
+    background-color: #f5f2e9;
     border-radius: 8px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
     position: relative;
@@ -79,7 +94,7 @@ nav button:hover {
 
 /* Estilizando a lista de itens */
 .list-item {
-    background-color: #fff;
+    background-color: #f5f2e9;
     border: 1px solid #ccc;
     padding: 20px;
     margin-bottom: 15px;
@@ -109,7 +124,7 @@ nav button:hover {
 .list-item button {
     padding: 6px 12px;
     background-color: #444;
-    color: white;
+    color: #f5f2e9;
     border: none;
     cursor: pointer;
     border-radius: 4px;
@@ -125,8 +140,8 @@ nav button:hover {
 form {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 🔹 Centraliza os inputs dentro do container */
-    justify-content: center; /* 🔹 Centraliza verticalmente */
+    align-items: center;
+    justify-content: center;
     text-align: center;
     max-width: 400px;
     margin: auto;
@@ -136,15 +151,15 @@ form {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilizando os campos de entrada */
+/* Ajustando campos de entrada para igualar os botões */
 input, textarea {
-    width: 80%; /* 🔹 Ajusta largura para melhor alinhamento */
-    padding: 10px;
+    width: calc(100% - 30px); /* 🔹 Garante que ocupem o mesmo espaço que os botões */
+    padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    text-align: center; /* 🔹 Centraliza o texto dentro dos campos */
+    text-align: center;
 }
 
 
@@ -156,9 +171,9 @@ h1, h2, h3, p {
 button {
     display: block;
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     background-color: #444;
-    color: white;
+    color: #f5f2e9;
     border: none;
     cursor: pointer;
     border-radius: 6px;
@@ -180,7 +195,7 @@ button:hover {
     margin: 40px auto;
     padding: 20px;
     border-radius: 8px;
-    background: #ffffff;
+    background: #f5f2e9;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
@@ -224,7 +239,7 @@ button:hover {
 
 .back-button {
     background-color: #d9534f;
-    color: white;
+    color: #f5f2e9;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -235,4 +250,30 @@ button:hover {
 
 .back-button:hover {
     background-color: #c9302c;
+}
+
+/* Estilizando o select para harmonizar com os inputs */
+select {
+    width: 100%; /* 🔹 Mesma largura dos inputs */
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px; /* 🔹 Bordas arredondadas como os inputs */
+    font-size: 16px;
+    text-align: center;
+    background-color: #fff; /* 🔹 Mantendo um fundo neutro */
+    cursor: pointer;
+    appearance: none; /* 🔹 Remove o estilo padrão do navegador */
+}
+
+/* Estilizando o select quando está focado */
+select:focus {
+    border-color: #444; /* 🔹 Destaca ao focar */
+    outline: none;
+}
+
+/* Estilizando as opções dentro do select */
+option {
+    font-size: 16px;
+    background-color: #fff;
 }
