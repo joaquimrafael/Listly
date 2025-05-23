@@ -1,209 +1,161 @@
-/* Estilos gerais */
-body {
-    font-family: Arial, sans-serif;
+
+* {
+    font-family: 'Poppins', Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+body, html {
     margin: 0;
     padding: 0;
-    background-color: #f5f2e9; /* 🔹 Um tom mais suave para maior conforto visual */
+    width: 100%;
+    height: 100%;
+    background-color: #f0efe6;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Estilizando a barra de navegação */
 nav {
     position: fixed;
     top: 0;
     left: 0;
-    width: 240px;
+    width: 260px;
     height: 100vh;
-    background-color: #605f5f;
-    padding: 25px;
+    background-color: #4e4e4e;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* 🔹 Centraliza os botões verticalmente */
-    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
-}
-
-.nav-buttons-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1; /* 🔹 Garante que os botões fiquem no meio */
-    justify-content: center;
-    width: 100%;
-}
-
-/* Ajuste dos botões */
-nav button {
-    width: 90%;
-    padding: 12px;
-    font-size: 16px;
-    background: none;
-    border: none; /* 🔹 Remove a borda branca */
-    color: #f5f2e9;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
-    margin-bottom: 15px; /* 🔹 Espaço entre os botões */
-}
-
-nav button:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-    transform: scale(1.05);
+    justify-content: space-between;
+    box-shadow: 3px 0px 8px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-img {
-    width: 80%; /* 🔹 Ajuste conforme necessário */
-    max-width: 150px; /* 🔹 Limita tamanho máximo */
-    display: block;
-    margin-top: 10px /* 🔹 Centraliza horizontalmente e adiciona espaço superior */
+    width: 100%;
+    max-width: 150px;
+    margin-top: 10px;
 }
 
-/* Estilizando o container principal */
-.container {
-    max-width: 650px;
-    margin: auto; /* 🔹 Centraliza na tela */
-    padding: 25px;
-    background-color: #f5f2e9;
-    border-radius: 8px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Ajustando a disposição geral */
-.app-container {
-    display: flex;
-    height: 100vh;
-    justify-content: center; /* 🔹 Centraliza os elementos */
-    align-items: center;
-    padding-left: 260px; /* 🔹 Garante espaço considerando a navbar */
-}
-
-/* Estilizando a área de conteúdo */
-.content {
-    flex: 1;
-    display: flex;
+.nav-buttons-container {
+    flex-grow: 1;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-}
-
-
-/* Estilizando a lista de itens */
-.list-item {
-    background-color: #f5f2e9;
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 6px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: stretch;
+    gap: 15px;
 }
 
-.list-item h3 {
-    margin-bottom: 5px;
-}
-
-.list-item p {
-    font-size: 14px;
-    color: #555;
-}
-
-.list-item a {
-    display: block;
-    margin-top: 5px;
-    color: #333;
-    text-decoration: none;
-}
-
-.list-item button {
-    padding: 6px 12px;
-    background-color: #444;
-    color: #f5f2e9;
+nav button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #333;
     cursor: pointer;
-    border-radius: 4px;
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
-.list-item button:hover {
-    background-color: #555;
+nav button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }
 
-/* Estilizando os formulários */
-form {
+.app-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 100vh;
+    padding-left: 260px;
+    background-color: #f0efe6;
+}
+
+.container {
+    flex: 1;
+    max-width: 900px;
+    margin: auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    gap: 20px;
 }
 
-/* Ajustando campos de entrada para igualar os botões */
-input, textarea {
-    width: calc(100% - 30px); /* 🔹 Garante que ocupem o mesmo espaço que os botões */
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+form {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+}
+
+input, textarea, select {
+    padding: 14px;
     font-size: 16px;
-    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
 }
-
-
-h1, h2, h3, p {
-    text-align: center; /* 🔹 Centraliza todos os títulos e parágrafos */
-}
-
 
 button {
-    display: block;
-    width: 100%;
-    padding: 12px;
+    padding: 14px;
+    font-size: 16px;
     background-color: #444;
-    color: #f5f2e9;
+    color: #f5f5f5;
     border: none;
-    cursor: pointer;
     border-radius: 6px;
-    transition: 0.3s;
-    margin-bottom: 15px; /* 🔹 Adiciona espaço entre os botões */
-}
-
-button:last-child {
-    margin-bottom: 0; /* 🔹 Remove margem do último botão para evitar espaçamento extra */
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button:hover {
     background-color: #555;
-    transform: scale(1.05);
+    transform: scale(1.04);
+}
+
+.list-item {
+    background: #fff;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .product-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    padding: 30px 40px;
+    margin: auto;
     border-radius: 8px;
-    background: #f5f2e9;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: #f5f5f5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 .product-title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
-    color: #333;
+    margin-bottom: 10px;
 }
 
 .product-price {
@@ -219,18 +171,11 @@ button:hover {
     margin-bottom: 10px;
 }
 
-.product-links {
-    margin-top: 20px;
-}
-
 .product-link {
-    display: block;
-    padding: 8px;
-    margin: 5px auto;
     color: #007bff;
     text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
+    display: block;
+    margin-top: 8px;
 }
 
 .product-link:hover {
@@ -239,41 +184,181 @@ button:hover {
 
 .back-button {
     background-color: #d9534f;
-    color: #f5f2e9;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    font-size: 16px;
 }
 
 .back-button:hover {
     background-color: #c9302c;
 }
 
-/* Estilizando o select para harmonizar com os inputs */
-select {
-    width: 100%; /* 🔹 Mesma largura dos inputs */
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px; /* 🔹 Bordas arredondadas como os inputs */
-    font-size: 16px;
+h1, h2, h3, p {
     text-align: center;
-    background-color: #fff; /* 🔹 Mantendo um fundo neutro */
-    cursor: pointer;
-    appearance: none; /* 🔹 Remove o estilo padrão do navegador */
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Estilizando o select quando está focado */
-select:focus {
-    border-color: #444; /* 🔹 Destaca ao focar */
-    outline: none;
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        padding: 10px;
+    }
+
+    .app-container {
+        flex-direction: column;
+        padding-left: 0;
+    }
+
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .nav-buttons-container {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 10px;
+    }
+
+    nav button {
+        padding: 10px;
+        font-size: 14px;
+    }
 }
 
-/* Estilizando as opções dentro do select */
-option {
+body, html, h1, h2, h3, p, input, textarea, select, button, a, div, span {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* 🔹 Garante que botões em container principal fiquem um abaixo do outro */
+.container button,
+.container .button-group button,
+form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.container .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+
+/* 🔹 Estilo para botões nas telas de produto e listas */
+.list-item button,
+.product-container button {
+    background-color: transparent;
+    color: #666;
+    font-weight: bold;
+    border: none;
+    width: auto;
+    padding: 10px 12px;
+    margin: 6px 0;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.list-item button:hover,
+.product-container button:hover {
+    background-color: rgba(100, 100, 100, 0.1);
+    transform: scale(1.03);
+    text-decoration: none;
+}
+
+/* 🔹 Alinha botões em colunas nessas áreas também */
+.product-container div,
+.list-item div,
+.container div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.list-item .back-button,
+.product-container .back-button {
+    background-color: #c9302c;
+    color: #f5f5f5;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 10px;
     font-size: 16px;
-    background-color: #fff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.list-item .back-button:hover,
+.product-container .back-button:hover {
+    background-color: #c9302c;
+    transform: scale(1.04);
+}
+
+.list-item {
+    max-width: 700px;
+}
+
+/* 🔹 Padroniza exibição visual das informações do produto */
+.product-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.product-info-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.product-info-group p {
+    margin: 0;
+    font-size: 16px;
+    color: #444;
+}
+
+.product-info-group strong {
+    color: #222;
+}
+
+.product-links {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.product-link {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-top: 8px;
+    color: #007bff;
+    font-weight: 500;
+    background-color: #eef2f7;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.product-link:hover {
+    background-color: #d6e0f0;
+    color: #0056b3;
+}
+
+.product-container > *:last-child {
+    margin-bottom: 0 !important; /* remove margem do último elemento */
 }
