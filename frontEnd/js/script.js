@@ -161,7 +161,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
                             })
                             .catch(error => console.error("Erro ao buscar itens da lista", error));
                     }}>
-                        Excluir Lista
+                        🗑️
                     </button>
                 </div>
             ))}
@@ -195,7 +195,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
                         onChange={(e) => setListName(e.target.value)} 
                     />
                     <button onClick={handleEditList}>Salvar</button>
-                    <button onClick={() => setEditingList(null)}>Cancelar</button>
+                    <button className="back-button" onClick={() => setEditingList(null)}>Cancelar</button>
                 </div>
             )}
         </div>
@@ -466,9 +466,12 @@ const ProductScreen = ({ selectedProduct, setScreen, selectedList }) => {
             {/* 📌 Tela principal: Exibe as informações do produto */}
             {view === "default" && (
                 <div>
-                    <p className="product-price"><strong>Preço:</strong> {selectedProduct.price}</p>
-                    <p className="product-description"><strong>Descrição:</strong> {selectedProduct.description || "Sem descrição disponível."}</p>
-                    <p className="product-priority"><strong>Prioridade:</strong> {selectedProduct.priority || "Não definida."}</p>
+                    <div className="product-info-group">
+                        <p><strong>Preço:</strong> {selectedProduct.price}</p>
+                        <p><strong>Descrição:</strong> {selectedProduct.description || "Sem descrição disponível."}</p>
+                        <p><strong>Prioridade:</strong> {selectedProduct.priority || "Não definida."}</p>
+                    </div>
+
                     <div className="product-links">
                         <strong>Links:</strong>
                         {selectedProduct.link ? (
