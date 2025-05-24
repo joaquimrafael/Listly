@@ -59,7 +59,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        axios.get("https://localhost:8443/api/lists")
+        axios.get("https://44.214.113.103/api/lists")
             .then(response => {
                 setLists(response.data);
             })
@@ -67,7 +67,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
     }, []);
 
     const handleDeleteItem = (listId, productId) => {
-        axios.delete(`https://localhost:8443/api/items?listId=${listId}&productId=${productId}`)
+        axios.delete(`https://44.214.113.103/api/items?listId=${listId}&productId=${productId}`)
             .then(() => {
                 setItems(prevItems => prevItems.filter(item => item.listId !== listId || item.productId !== productId));
             })
@@ -81,7 +81,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
             return;
         }
 
-        axios.post("https://localhost:8443/api/lists", { name: listName })
+        axios.post("https://44.214.113.103/api/lists", { name: listName })
             .then(response => {
                 setLists(prevLists => [...prevLists, response.data]); // Adiciona ao estado
                 setListName(""); // Limpa campo
@@ -103,7 +103,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
             return;
         }
 
-        axios.put(`https://localhost:8443/api/lists/${editingList.id}`, { name: listName })
+        axios.put(`https://44.214.113.103/api/lists/${editingList.id}`, { name: listName })
             .then(() => {
                 setLists(prevLists =>
                     prevLists.map(l => (l.id === editingList.id ? { ...l, name: listName } : l))
@@ -130,21 +130,21 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
                     </button>
                     <button onClick={() => startEditing(list)}>Editar Lista</button>
                     <button onClick={() => {
-                        axios.get(`https://localhost:8443/api/items?listId=${list.id}`)
+                        axios.get(`https://44.214.113.103/api/items?listId=${list.id}`)
                             .then(response => {
                                 const items = response.data || [];
                                 console.log("Itens antes da exclusão:", items);
 
                                 if (!items || items.length === 0) {
                                     console.log("Nenhum item na lista, excluindo diretamente...");
-                                    return axios.delete(`https://localhost:8443/api/lists/${list.id}`)
+                                    return axios.delete(`https://44.214.113.103/api/lists/${list.id}`)
                                         .then(() => setLists(lists.filter(l => l.id !== list.id)))
                                         .catch(error => console.error("Erro ao excluir lista", error));
                                 }
 
                                 const deleteItemRequests = items.map(item => {
                                     console.log(`Excluindo item: listId=${list.id}, productId=${item.productId}`);
-                                    return axios.delete(`https://localhost:8443/api/items?listId=${list.id}&productId=${item.productId}`);
+                                    return axios.delete(`https://44.214.113.103/api/items?listId=${list.id}&productId=${item.productId}`);
                                 });
 
                                 return Promise.all(deleteItemRequests)
@@ -152,7 +152,7 @@ const ListsScreen = ({ setScreen, setSelectedList }) => {
                                         console.log("Todos os itens excluídos. Agora, recarregando a lista...");
                                         return new Promise(resolve => setTimeout(resolve, 500)); // 🔹 Aguarda 500ms antes de excluir a lista
                                     })
-                                    .then(() => axios.delete(`https://localhost:8443/api/lists/${list.id}`))
+                                    .then(() => axios.delete(`https://44.214.113.103/api/lists/${list.id}`))
                                     .then(() => {
                                         console.log("Lista excluída com sucesso!");
                                         setLists(prevLists => prevLists.filter(l => l.id !== list.id));
@@ -214,13 +214,13 @@ const ListScreen = ({ setScreen, selectedList, setSelectedProduct }) => {
 
     useEffect(() => {
         if (selectedList && selectedList.id) {
-            axios.get(`https://localhost:8443/api/items?listId=${selectedList.id}`)
+            axios.get(`https://44.214.113.103/api/items?listId=${selectedList.id}`)
                 .then(response => {
                     const itemList = response.data || [];
 
                     // Agora buscamos os detalhes dos produtos usando o productId de cada item
                     const productRequests = itemList.map(item =>
-                        axios.get(`https://localhost:8443/api/products/${item.productId}`)
+                        axios.get(`https://44.214.113.103/api/products/${item.productId}`)
                             .then(res => ({ ...item, product: res.data }))
                     );
 
@@ -231,7 +231,7 @@ const ListScreen = ({ setScreen, selectedList, setSelectedProduct }) => {
                 .catch(error => console.error("Erro ao buscar itens da lista", error));
         }
 
-        axios.get("https://localhost:8443/api/products")
+        axios.get("https://44.214.113.103/api/products")
             .then(response => {
                 setProducts(response.data);
             })
@@ -240,7 +240,7 @@ const ListScreen = ({ setScreen, selectedList, setSelectedProduct }) => {
     }, [selectedList]);
 
     const handleDeleteItem = (listId, productId) => {
-        axios.delete(`https://localhost:8443/api/items?listId=${listId}&productId=${productId}`)
+        axios.delete(`https://44.214.113.103/api/items?listId=${listId}&productId=${productId}`)
             .then(() => {
                 setItems(prevItems => prevItems.filter(item => item.listId !== listId || item.productId !== productId));
             })
@@ -265,7 +265,7 @@ const ListScreen = ({ setScreen, selectedList, setSelectedProduct }) => {
         });
 
 
-        axios.post(`https://localhost:8443/api/items?listId=${selectedList.id}&productId=${selectedProduct.id}&quantity=${parsedQuantity}`)
+        axios.post(`https://44.214.113.103/api/items?listId=${selectedList.id}&productId=${selectedProduct.id}&quantity=${parsedQuantity}`)
             .then(() => {
                 setItems([...items, { 
                     listId: selectedList.id, 
@@ -292,11 +292,11 @@ const ListScreen = ({ setScreen, selectedList, setSelectedProduct }) => {
             link: newProduct.link
         };
 
-        axios.post("https://localhost:8443/api/products", productData)
+        axios.post("https://44.214.113.103/api/products", productData)
             .then(response => {
                 const createdProduct = response.data;
 
-                return axios.post(`https://localhost:8443/api/items?listId=${selectedList.id}&productId=${createdProduct.id}&quantity=${quantity}`)
+                return axios.post(`https://44.214.113.103/api/items?listId=${selectedList.id}&productId=${createdProduct.id}&quantity=${quantity}`)
                     .then(() => createdProduct);
             })
             .then(createdProduct => {
@@ -432,7 +432,7 @@ const ProductScreen = ({ selectedProduct, setScreen, selectedList }) => {
         console.log("newQuantity:", newQuantity);
 
 
-        axios.put(`https://localhost:8443/api/items?listId=${selectedList.id}&productId=${selectedProduct.id}&quantity=${parsedQuantity}`)
+        axios.put(`https://44.214.113.103/api/items?listId=${selectedList.id}&productId=${selectedProduct.id}&quantity=${parsedQuantity}`)
             .then(() => {
                 alert("Quantidade atualizada com sucesso!");
                 setView("default"); // Volta para a tela inicial após atualização
@@ -442,7 +442,7 @@ const ProductScreen = ({ selectedProduct, setScreen, selectedList }) => {
 
 
     const handleUpdateProduct = () => {
-        axios.put(`https://localhost:8443/api/products/${selectedProduct.id}`, editedProduct)
+        axios.put(`https://44.214.113.103/api/products/${selectedProduct.id}`, editedProduct)
             .then(() => {
                 alert("Produto atualizado com sucesso!");
                 setView("default"); // Volta para a tela inicial após atualização
