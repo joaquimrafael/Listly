@@ -1,9 +1,12 @@
 # Listly
-Repositório referente a implementação do produto Listly, para a disciplina de Laboratório de Engenharia de Software, manhã 6G
+Repositório referente a implementação do produto Listly, uma aplicação web desenvolvida para o gerenciamento de listas de compras online.
 
-https://docs.google.com/presentation/d/16s76TrL4bKF6QCReBg-xTgAVYvUnitAzul_cwLkX4jw/edit?usp=sharing
+## Backend - Java / SpringBoot (API Rest)
+## Frontend - JavaScript - React (UI)
+## DataBase - SQLite
 
-* Joaquim Rafael M. P. Pereira - 10408805
-* Antonio Carlos Sciamarelli Neto - 10409160
-* Henrique Arabe Neres de Farias - 10410152
+### Apresentação do produto: https://docs.google.com/presentation/d/16s76TrL4bKF6QCReBg-xTgAVYvUnitAzul_cwLkX4jw/edit?usp=sharing
 
+* Joaquim Rafael M. P. Pereira
+* Antonio Carlos Sciamarelli Neto 
+* Henrique Arabe Neres de Farias 
